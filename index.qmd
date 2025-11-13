@@ -1,5 +1,5 @@
 ---
-title: "mysite"
+title: "Mitch Thronson"
 ---
 
 This is a Quarto website.
