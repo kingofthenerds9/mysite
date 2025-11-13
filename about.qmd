@@ -4,6 +4,4 @@ title: "About"
 
 About this site
 
-```{r}
-1 + 1
-```
+blah blah blah bleh bleh bleh blu blu blu mi gente el que quiera perder su tiempo que lo pierda no fuimos ling gan guli guli guli guacha ling gan gu ling gan gu
