@@ -74,7 +74,10 @@ For one reason or another, the statistics gods have blessed us with data of all 
 
 # Number of significant words tweeted per month
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 barack_words |>
   count(year, month) |>
   ggplot() +
@@ -89,7 +92,10 @@ barack_words |>
   )
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 michelle_words |>
   count(year, month) |>
   ggplot() +
@@ -104,7 +110,10 @@ michelle_words |>
   )
 ```
 
-```{r, echo=FALSE, fig.alt = "The chart shown is a stacked bar graph showing the total number of significant words tweeted per month by both Barack and Michelle Obama during Obama's presidency. The x axis measures each month and spans from 05/2015 to 11/2016. The y axis measures the number of words tweeted and ranges from 10 to 155 words. The graph shows a significant variability in the number of words tweeted by month by both Barack and Michelle. It it also clear that Michelle was significantly more involved on Twitter during this time period compared to her husband since she continuously has the vast majority of significant words tweeted each month."}
+```{r, fig.alt = "The chart shown is a stacked bar graph showing the total number of significant words tweeted per month by both Barack and Michelle Obama during Obama's presidency. The x axis measures each month and spans from 05/2015 to 11/2016. The y axis measures the number of words tweeted and ranges from 10 to 155 words. The graph shows a significant variability in the number of words tweeted by month by both Barack and Michelle. It it also clear that Michelle was significantly more involved on Twitter during this time period compared to her husband since she continuously has the vast majority of significant words tweeted each month."}
+#| echo: false
+#| message: false
+#| warning: false
 tweets_words |>
   count(year, month, person) |>
   ggplot() +
@@ -126,14 +135,20 @@ We can see that there is a large variability within how much was tweeted by mont
 
 # Most common words by month
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 barack_words |>
   group_by(year, month) |>
   count(word) |>
   slice_max(order_by = n, with_ties = F)
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 michelle_words |>
   group_by(year, month) |>
   count(word) |>
@@ -144,7 +159,10 @@ Next, we see the most common words by month recorded for both Barack and Michell
 
 # Most common word pairs
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 barack |>
   unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
   filter(bigram != "NA") |>
@@ -157,7 +175,10 @@ barack |>
   print(n = 10)
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 michelle |>
   unnest_tokens(bigram, text, token = "ngrams", n = 2) |>
   filter(bigram != "NA") |>
@@ -174,7 +195,10 @@ After analyzing all of the most common individual words, I deemed it appropriate
 
 # Proportion of retweets
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 tweets |>
   mutate(tweet_type = ifelse(str_detect(text, "^RT"), "retweet", "initial tweet")) |>
   group_by(person) |>
@@ -194,7 +218,10 @@ Some of the different tweeting habits between Michelle and Barack could potentia
 
 # Sentiments of tweets
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 bing_sentiments <- get_sentiments(lexicon = "bing")
 
 barack_words |>
@@ -218,7 +245,10 @@ For the remaining two charts, we will solely be focusing on Barack's tweeting hi
 
 # Mood words of tweets
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 nrc_sentiments <- get_sentiments("nrc")
 
 barack_words |>
