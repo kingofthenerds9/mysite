@@ -12,7 +12,7 @@ about:
 
 Welcome to my Quarto website!
 
-I'm currently a sophomore at St. Olaf College studying statistics and data science. I am also a member of the St. Olaf Choir.
+I'm currently a sophomore at St. Olaf College studying statistics and data science. I am also a member of the St. Olaf Choir. In my free time I enjoy singing, going running/swimming, playing solitaire, exploring nature and spending time with friends and family. I have two younger siblings and a dog named Lily.
 
 ## Education
 

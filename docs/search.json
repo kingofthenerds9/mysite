@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Mitch Thronson",
     "section": "",
-    "text": "Welcome to my Quarto website!\nI’m currently a sophomore at St. Olaf College studying statistics and data science. I am also a member of the St. Olaf Choir."
+    "text": "Welcome to my Quarto website!\nI’m currently a sophomore at St. Olaf College studying statistics and data science. I am also a member of the St. Olaf Choir. In my free time I enjoy singing, going running/swimming, playing solitaire, exploring nature and spending time with friends and family. I have two younger siblings and a dog named Lily."
   },
   {
     "objectID": "mp1.html",
@@ -25,7 +25,7 @@
     "href": "maps.html",
     "title": "Choropleth Maps",
     "section": "",
-    "text": "In the following we get to explore interactive non-interactive graphs across a categorical and numerical data relating to automotive trends by state in the US.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOur numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale."
+    "text": "In the following we get to explore interactive non-interactive graphs across a categorical and numerical data relating to automotive trends by state in the US.\n\nNumeric variable\nOur numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCategorical Variable\nOur categorical variable denotes the most popular car (by make and model) in each state. We can see by the graph that in the more central, rural parts of the US, full-size trucks, (such as the Chevy Silverado, Ford F-Series and GMC Sierra), seem to be the vastly dominant choice for peoples. This would make sense given the more agriculturally focused work within those climates paired with a more off-road-dependent driving environment. In the more urban, coastal regions of the US, compact crossovers appear to be the craze with examples such as the Honda CR-V, Toyota RAV4 and Tesla Model Y consistently being the most popular choice in those areas. This is most likely explained by the more centralized environment these drivers most likely live in, where there is little to no need to go off the beaten path."
   },
   {
     "objectID": "index.html#education",

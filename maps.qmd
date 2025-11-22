@@ -94,6 +94,10 @@ gas_labels <- lapply(auto_stats_leaflet$gas_labels, HTML)
 car_labels <- lapply(auto_stats_leaflet$car_labels, HTML)
 ```
 
+### Numeric variable
+
+Our numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale.
+
 ```{r}
 #| echo: false
 #| warning: false
@@ -142,7 +146,9 @@ leaflet(auto_stats_leaflet) |>
 ?addLegend
 ```
 
-Our numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale.
+### Categorical Variable
+
+Our categorical variable denotes the most popular car (by make and model) in each state. We can see by the graph that in the more central, rural parts of the US, full-size trucks, (such as the Chevy Silverado, Ford F-Series and GMC Sierra), seem to be the vastly dominant choice for peoples. This would make sense given the more agriculturally focused work within those climates paired with a more off-road-dependent driving environment. In the more urban, coastal regions of the US, compact crossovers appear to be the craze with examples such as the Honda CR-V, Toyota RAV4 and Tesla Model Y consistently being the most popular choice in those areas. This is most likely explained by the more centralized environment these drivers most likely live in, where there is little to no need to go off the beaten path.  
 
 ```{r}
 #| echo: false
@@ -158,7 +164,8 @@ auto_stats_coords |>
     caption = "Source: https://worldpopulationreview.com/state-rankings/most-popular-car-by-state"
   ) +
   coord_map() +
-  theme_void()
+  theme_void() +
+  scale_fill_brewer(palette = "Set1")
 ```
 
 ```{r}
