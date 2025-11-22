@@ -136,8 +136,6 @@ We can see that there is a large variability within how much was tweeted by mont
 
 ```{r}
 #| echo: false
-#| message: false
-#| warning: false
 barack_words |>
   group_by(year, month) |>
   count(word) |>

@@ -1,11 +1,21 @@
 ---
 title: "Mitch Thronson"
+image: sps.jpeg
+toc: false
+about:
+  template: broadside
+  image-width: 20em
+  links:
+    - text: GitHub
+      href: https://github.com/kingofthenerds9
 ---
 
-This is a Quarto website.
+Welcome to my Quarto website!
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I'm currently a sophomore at St. Olaf College studying statistics and data science. I am also a member of the St. Olaf Choir.
 
-```{r}
-1 + 1
-```
+## Education
+
+2020-'24 | Coon Rapids High School (Coon Rapids, MN)
+
+2022-'24 | Anoka-Ramsey Community College (Coon Rapids, MN)

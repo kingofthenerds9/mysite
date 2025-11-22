@@ -1,3 +1,67 @@
 ---
 title: "Choropleth Maps"
 ---
+
+```{r}
+#| include: false
+library(tidyverse)
+library(stringr)
+library(rvest)
+library(polite)
+library(sf)
+library(maps)
+library(viridis)
+library(leaflet)
+library(htmltools)
+library(mdsr)
+```
+
+
+```{r}
+#| include: false
+session <- bow("https://gasprices.aaa.com/state-gas-price-averages/", force = TRUE)
+
+state <- scrape(session) |>
+  html_nodes("td:nth-child(1)") |>
+  html_text()
+
+regular_gas <- scrape(session) |>
+  html_nodes("td.regular") |>
+  html_text()
+
+gas_by_state <- tibble(state, regular_gas) |>
+  mutate(state = str_extract(state, "[A-Za-z]+[ ]*[A-Za-z]+[ ]*[A-Za-z]+"),
+         regular_gas = parse_number(regular_gas))
+```
+
+```{r}
+#| include: false
+session <- bow("https://worldpopulationreview.com/state-rankings/most-popular-car-by-state", force = TRUE)
+
+state2 <- scrape(session) |>
+  html_nodes(".px-2+ .align-middle") |>
+  html_text()
+  
+
+favorite_car <- scrape(session) |>
+  html_nodes(".align-middle:nth-child(3)") |>
+  html_text()
+
+cars_by_state <- tibble(state2, favorite_car)
+```
+
+```{r}
+#| include: false
+auto_stats <- gas_by_state |>
+  inner_join(cars_by_state, by = join_by(state == state2))
+```
+
+```{r}
+#| include: false
+library(maps)
+us_states <- map_data("state") |>
+  mutate(region = str_to_title(region)) |>
+  rename(state = region)
+```
+
+
