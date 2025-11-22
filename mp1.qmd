@@ -152,7 +152,7 @@ michelle_words |>
   slice_max(order_by = n, with_ties = F)
 ```
 
-Next, we see the most common words by month recorded for both Barack and Michelle (since the majority of tweets during this time period come from Michelle, the combined dataset isn't used here). The words most commonly used by Barack emit a sense of political activism, initiative and inspiration--including great, change, health, people, history, etc.. On the other hand, almost of all of Michelle's most commonly used words by month were "lady" (possibly in self-reference to her title as first lady)--not at exciting at all.
+Next, we see the most common words by month recorded for both Barack and Michelle (since the majority of tweets during this time period come from Michelle, the combined dataset isn't used here). The words most commonly used by Barack emit a sense of political activism, initiative and inspiration--including great, change, health, people, history, etc.. On the other hand, almost of all of Michelle's most commonly used words by month were "lady" (possibly in self-reference to her title as first lady)--not that exciting at all.
 
 # Most common word pairs
 
