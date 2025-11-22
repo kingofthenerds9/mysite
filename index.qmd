@@ -4,7 +4,7 @@ image: sps.jpeg
 toc: false
 about:
   template: broadside
-  image-width: 20em
+  image-width: 25em
   links:
     - text: GitHub
       href: https://github.com/kingofthenerds9

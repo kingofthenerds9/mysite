@@ -14,8 +14,8 @@ library(viridis)
 library(leaflet)
 library(htmltools)
 library(mdsr)
+library(glue)
 ```
-
 
 ```{r}
 #| include: false
@@ -31,7 +31,10 @@ regular_gas <- scrape(session) |>
 
 gas_by_state <- tibble(state, regular_gas) |>
   mutate(state = str_extract(state, "[A-Za-z]+[ ]*[A-Za-z]+[ ]*[A-Za-z]+"),
-         regular_gas = parse_number(regular_gas))
+         regular_gas = parse_number(regular_gas)) |>
+  arrange(state)
+
+
 ```
 
 ```{r}
@@ -47,21 +50,141 @@ favorite_car <- scrape(session) |>
   html_nodes(".align-middle:nth-child(3)") |>
   html_text()
 
-cars_by_state <- tibble(state2, favorite_car)
+cars_by_state <- tibble(state2, favorite_car) |>
+  arrange(state2)
 ```
 
 ```{r}
 #| include: false
 auto_stats <- gas_by_state |>
-  inner_join(cars_by_state, by = join_by(state == state2))
+  left_join(cars_by_state, by = join_by(state == state2))
 ```
+
+In the following we get to explore interactive non-interactive graphs across a categorical and numerical data relating to automotive trends by state in the US. 
 
 ```{r}
 #| include: false
-library(maps)
 us_states <- map_data("state") |>
   mutate(region = str_to_title(region)) |>
   rename(state = region)
 ```
 
+```{r}
+#| include: false
+auto_stats_coords <- auto_stats |>
+  right_join(us_states, by = join_by(state))
+```
 
+```{r}
+#| include: false
+states_sf <- read_sf("https://rstudio.github.io/leaflet/json/us-states.geojson") |>
+  select(name, geometry)
+auto_stats_sf <- states_sf |>
+  right_join(auto_stats, by = join_by(name == state))
+
+bins <- c(2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.5, 4, Inf)
+pal1 <- colorBin("YlOrRd", domain = auto_stats_sf$regular_gas, bins = bins)
+pal2 <- colorFactor("Set1", domain = auto_stats_sf$favorite_car)
+
+auto_stats_leaflet <- auto_stats_sf |>
+  mutate(gas_labels = str_c(name, ": $", regular_gas, "/gallon"),
+         car_labels = str_c(name, ": ", favorite_car))
+
+gas_labels <- lapply(auto_stats_leaflet$gas_labels, HTML)
+car_labels <- lapply(auto_stats_leaflet$car_labels, HTML)
+```
+
+```{r}
+#| echo: false
+#| warning: false
+auto_stats_coords |>
+  mutate(reg_gas_intv = cut(regular_gas, n = 8, breaks = c(2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.5, 4, Inf))) |>
+  ggplot(mapping = aes(x = long, y = lat, group = group)) + 
+  geom_polygon(aes(fill = reg_gas_intv), color = "black") + 
+  labs(
+    title = "Average regular grade gas price by state on November 21st 2025",
+    x = "",
+    y = "",
+    fill = "Price",
+    caption = "Source: https://gasprices.aaa.com/state-gas-price-averages/"
+  ) +
+  coord_map() +
+  theme_void() +
+  scale_fill_brewer(palette = "YlOrRd")
+```
+
+```{r}
+#| echo: false
+#| warning: false
+leaflet(auto_stats_leaflet) |>
+  setView(-96, 37.8, 4) |>
+  addTiles()|>
+  addPolygons(
+    fillColor = ~pal1(regular_gas),
+    weight = 2,
+    opacity = 1,
+    color = "white",
+    dashArray = "3",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 5,
+      color = "#666",
+      dashArray = "",
+      fillOpacity = 0.7,
+      bringToFront = TRUE),
+    label = gas_labels,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "15px",
+      direction = "auto")) |>
+  addLegend(pal = pal1, values = ~regular_gas, opacity = 0.7, title = NULL,
+            position = "bottomright")
+?addLegend
+```
+
+Our numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale.
+
+```{r}
+#| echo: false
+#| warning: false
+auto_stats_coords |>
+  ggplot(mapping = aes(x = long, y = lat, group = group)) + 
+  geom_polygon(aes(fill = favorite_car), color = "black") + 
+  labs(
+    title = "Most popular car by US State",
+    x = "",
+    y = "",
+    fill = "Make and model",
+    caption = "Source: https://worldpopulationreview.com/state-rankings/most-popular-car-by-state"
+  ) +
+  coord_map() +
+  theme_void()
+```
+
+```{r}
+#| echo: false
+#| warning: false
+leaflet(auto_stats_leaflet) |>
+  setView(-96, 37.8, 4) |>
+  addTiles() |>
+  addPolygons(
+    fillColor = ~pal2(favorite_car),
+    weight = 2,
+    opacity = 1,
+    color = "white",
+    dashArray = "3",
+    fillOpacity = 0.7,
+    highlightOptions = highlightOptions(
+      weight = 5,
+      color = "#666",
+      dashArray = "",
+      fillOpacity = 0.7,
+      bringToFront = TRUE),
+    label = car_labels,
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "15px",
+      direction = "auto")) |>
+  addLegend(pal2, values = ~favorite_car, opacity = 0.7, title = NULL,
+            position = "bottomright")
+```
