@@ -60,7 +60,7 @@ auto_stats <- gas_by_state |>
   left_join(cars_by_state, by = join_by(state == state2))
 ```
 
-In the following we get to explore interactive non-interactive graphs across a categorical and numerical data relating to automotive trends by state in the US. 
+In the following we get to explore interactive non-interactive graphs across a categorical and numerical data relating to automotive trends by state in the US.
 
 ```{r}
 #| include: false
@@ -144,7 +144,7 @@ leaflet(auto_stats_leaflet) |>
 
 ## Numeric Variable
 
-Our numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale.  
+Our numeric variable measures the average gas price for each state as of November 21st, 2025. Because of the stark contrast in gas prices from the west coast to the rest of the country, an artificial scale had to be produced to accentuate the smaller differences between the states in the midwest and east coast. We can see that the cheapest gas prices tend to be in the Deep South and slowly start to increase as we fan out to the surrounding regions, with a drastic increase once you approach the west coast, even with our readjusted scale.
 
 ```{r}
 #| echo: false
